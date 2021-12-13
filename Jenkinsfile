@@ -55,7 +55,7 @@ pipeline{
             }
             steps{
                 echo 'Publishing For UAT'
-                bat 'dotnet publish \\CoreWithUnit.Api\\CoreWithUnit.Api.csproj -c release'
+                bat 'dotnet publish -c release'
             }
         }
         stage('Prod Publish'){
@@ -64,7 +64,7 @@ pipeline{
             }
             steps{
                 echo 'Publishing For UAT'
-                bat 'dotnet publish \\CoreWithUnit.Api\\CoreWithUnit.Api.csproj -c release'
+                bat 'dotnet publish -c release'
             }
         }
         stage('Delete Previous'){
