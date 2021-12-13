@@ -46,7 +46,7 @@ pipeline{
 			}
             steps{
                 echo 'Running Unit Test At Master'
-                bat "dotnet test --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='C:\\JenkinsData\\MultiBrnachTest\\master\\CoreWithTest.Test\\CoverageReport'"
+                bat "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='C:\\JenkinsData\\MultiBrnachTest\\master\\CoreWithTest.Test\\CoverageReport'"
             }
         }
         stage('UAT Publish'){
