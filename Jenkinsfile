@@ -25,7 +25,7 @@ pipeline{
                     //timeout(time: 1, unit: 'HOURS')
                 //}
                 echo 'Restoring Missing Packages'
-                bat 'dotnet restore'
+                bat 'dotnet restore \PMS.Web\'
             }
         }
         stage('Clean'){
@@ -40,10 +40,13 @@ pipeline{
                 bat 'dotnet build'
             }
         }
-        stage('Test'){
+        stage('Unit Test UAT'){
+			When{
+				branch 'master'
+			}
             steps{
-                echo 'Running Unit Test'
-                bat "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='c:/JenkinsData/CoverageReport/'"
+                echo 'Running Unit Test At Master'
+                bat "dotnet test \\CoreWithTest.Test\\CoreWithTest.Test.csproj --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='C:\\JenkinsData\\MultiBrnachTest\\master\\CoreWithTest.Test\\CoverageReport'"
             }
         }
         stage('UAT Publish'){
@@ -52,7 +55,7 @@ pipeline{
             }
             steps{
                 echo 'Publishing For UAT'
-                bat 'dotnet publish -c release'
+                bat 'dotnet publish \\CoreWithUnit.Api\\CoreWithUnit.Api.csproj -c release'
             }
         }
         stage('Prod Publish'){
@@ -61,17 +64,17 @@ pipeline{
             }
             steps{
                 echo 'Publishing For UAT'
-                bat 'dotnet publish -c release'
+                bat 'dotnet publish \\CoreWithUnit.Api\\CoreWithUnit.Api.csproj -c release'
             }
         }
         stage('Delete Previous'){
             steps{
-                bat 'rmdir /s /q "C:\\CICD\\Deployment\\Pipeline"'
+                bat 'rmdir /s /q "C:\\CICD\\Deployment\\MultiBranch"'
             }
         }
         stage('copy'){
             steps{
-                bat'robocopy C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\CoreJenkins\\CoreJenkins\\CoreJenkins\\bin\\Release\\net5.0\\publish C:\\CICD\\Deployment\\Pipeline /e & EXIT /B 0'
+                bat'robocopy C:\\JenkinsData\\MultiBrnachTest\\master\\CoreWithUnit.Api\\bin\\Release\\net5.0\\publish C:\\CICD\\Deployment\\MultiBranch /e & EXIT /B 0'
             }
         }
     }
