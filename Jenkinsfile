@@ -48,7 +48,7 @@ pipeline{
         }
         stage('UAT Publish'){
             when{
-                brnach 'master'
+                branch 'master'
             }
             steps{
                 echo 'Publishing For UAT'
