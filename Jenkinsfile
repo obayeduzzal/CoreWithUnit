@@ -21,9 +21,9 @@ pipeline{
         }
         stage('Restore'){
             steps{
-                options{
-                    timeout(time: 1, unit: 'HOURS')
-                }
+                //options{
+                    //timeout(time: 1, unit: 'HOURS')
+                //}
                 echo 'Restoring Missing Packages'
                 bat 'dotnet restore'
             }
