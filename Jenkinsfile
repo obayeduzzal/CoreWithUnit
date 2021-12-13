@@ -10,12 +10,14 @@ pipeline{
     }
     stages{
         stage('Job Start Notification'){
-            echo 'Starting Job'
-            emailext(
-                     to: 'pbayed.khandaker@brainstation-23.com',
-                     subject: "Started Job '${env.JOB_NAME}', Build#${env.BUILD_NUMBER}",
-                     body: "Started Job '${env}'"
-                )
+			steps{
+				echo 'Starting Job'
+				emailext(
+						to: 'obayed.khandaker@brainstation-23.com',
+						subject: "Job Started '${env.JOB_NAME}', Build#${env.BUILD_NUMBER}",
+						body: "Job Started '${env}'"
+					)
+			}          
         }
         stage('Restore'){
             steps{
