@@ -41,7 +41,7 @@ pipeline{
             }
         }
         stage('Unit Test UAT'){
-			When{
+			when{
 				branch 'master'
 			}
             steps{
