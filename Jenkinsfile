@@ -25,7 +25,7 @@ pipeline{
                     //timeout(time: 1, unit: 'HOURS')
                 //}
                 echo 'Restoring Missing Packages'
-                bat 'dotnet restore \PMS.Web\'
+                bat 'dotnet restore'
             }
         }
         stage('Clean'){
